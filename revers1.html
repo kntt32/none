@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#FFECD4">
+    <meta charset='utf-8'>
+    <title>Revers1</title>
+
+    <style type='text/css'>
+      body {
+        background: #FFECD4;
+        font-family: sans-serif;
+      }
+      div {
+        border-width: 0px;
+      }
+      button {
+        border-width: 0px;
+        border-color: white;
+      }
+
+      select {
+        background: #FFD9A8;
+        border-width: 0px;
+        font-size: 30px;
+        width: 150px;
+        height: 50px;
+        border-radius: 15px;
+        text-align: center;
+        margin: 5px;
+      }
+
+      table {
+        margin: 0px;
+      }
+
+      .resultboardstyle {
+        background: #FFD9A8;
+        overflow: hidden;
+        border-radius: 20px;
+        position: fixed;
+        width: 250px;
+        height: 100px;
+      }
+      #resultboard-1 {
+        top: calc(50% + 230px);
+        left: calc(50% - 125px);
+      }
+      #resultboard-2 {
+        top: calc(50% - 50px);
+        left: calc(50% - 405px);
+        transform: rotate(90deg);
+      }
+      #resultboard-3 {
+        top: calc(50% - 330px);
+        left: calc(50% - 125px);
+        transform: rotate(180deg);
+      }
+      #resultboard-4 {
+        top: calc(50% - 50px);
+        left: calc(50% + 230px - 75px);
+        transform: rotate(270deg);
+      }
+      .resultboard-grid {
+        overflow: hidden;
+        border-radius: 25px;
+        position: absolute;
+        top: calc(50% - 25px);
+        left: 25px;
+        width: 50px;
+        height: 50px;
+      }
+      .resultnumboardstyle {
+        background: #FFFFFF;
+        overflow: hidden;
+        border-radius: 10px;
+        position: absolute;
+        top: calc(50% - 40px);
+        left: 100px;
+        width: 140px;
+        height: 80px;
+      }
+      .resultnumboardvaluestyle {
+        position: absolute;
+        top: calc(50% - 30px);
+        left: 0px;
+        width: 80%;
+        text-align: right;
+        font-size: 40px;
+        color: #5E5E5E;
+      }
+
+
+      #boardback {
+        background: #FFD9A8;
+        overflow: scroll;
+        border-radius: 20px;
+        position: fixed;
+        width: 440px;
+        height: 440px;
+        top: calc(50% - 220px);
+        left: calc(50% - 220px);
+      }
+      #boardView {
+        padding: 0px;
+        background: #FFFFFF;
+        overflow: hidden;
+        border-radius: 10px;
+        position: absolute;
+        width: 420px;
+        height: 420px;
+        top: 10px;
+        left: 10px;
+      }
+      .gridIsHidden {
+        background: #FFFFFF;
+        border-color: #FFFFFF;
+      }
+      .gridIsCanset {
+        border-width: 2px;
+        border-style: dotted;
+        border-color: #FECB3E;
+        box-sizing: border-box;
+      }
+      .gridIsBlack {
+        background: #000000;
+      }
+      .gridIsWhite {
+        background: #FFFFFF;
+        border: 1px solid #555555;
+        box-sizing: border-box;
+      }
+      .gridIsRed {
+        background: #FF8549;
+      }
+      .gridIsBlue {
+        background: #3B87FE;
+      }
+
+      #menubutton{
+        background: #FFC777;
+        width: 56px;
+        height: 56px;
+        position: fixed;
+        top: calc(50% - 28px);
+        right: 40px;
+        border-radius: 28px;
+        display: grid;
+        place-items: center;
+        font-size: 14px;
+        color: white;
+      }
+
+      .isturnboardstyle {
+        background: #FFD9A8;
+        position: absolute;
+        top: calc(100% - 8px);
+        left: calc(50% - 50px);
+        width: 100px;
+        height: 6px;
+      }
+
+      #startboard {
+        background: #FFF2D5;
+        position: fixed;
+        width: 460px;
+        height: 460px;
+        top: calc(50% - 250px);
+        left: calc(50% - 250px);
+        border-radius: 30px;
+        box-shadow: 0px 1px 50px 3px #aaa;
+        transition: all 0.4s 0s ease;
+        text-align: center;
+        padding: 20px;
+      }
+      #startbutton {
+        background: #FFC777;
+        color: #FFFFFF;
+        width: 210px;
+        height: 50px;
+        border-radius: 15px;
+        text-align: center;
+        font-size: 25px;
+        margin-top: 7px;
+      }
+      #hiddenstart {
+        background: #FFFFFF;
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #5E5E5E;
+      }
+      .hidden {
+        transform: translateY(1000px);
+        opacity: 0;
+      }
+
+      #victoryBoard {
+        background: #FFF2D5;
+        position: fixed;
+        border-radius: 30px;
+        width: 460px;
+        height: 460px;
+        top: calc(50% - 250px);
+        left: calc(50% - 250px);
+        text-align: center;
+        color: #DEC488;
+        padding: 20px;
+        transition: all 0.4s 0s ease;
+        box-shadow: 0px 1px 50px 3px #aaa;
+      }
+      #replaybutton {
+        background: #FFC777;
+        color: #FFFFFF;
+        width: 210px;
+        height: 50px;
+        border-radius: 15px;
+        text-align: center;
+        font-size: 25px;
+      }
+      .vicnumboardstyle {
+        background: #FFFFFF;
+        overflow: hidden;
+        border-radius: 10px;
+        width: 140px;
+        padding: 0px;
+        margin: 7px;
+      }
+      .vicnumboardvaluestyle {
+        width: 80%;
+        text-align: right;
+        font-size: 40px;
+        color: #5E5E5E;
+      }
+      .winstyle {
+        font-size: 40px;
+        color: #5E5E5E;
+      }
+      .zeroopacity {
+        opacity: 0;
+      }
+    </style>
+
+    <script>
+//core script
+var nowappmainturn = 0;
+
+const finddepth = 2;
+
+var userishuman = [true, false, false, false];
+var aiweight = [0,0,0,0];
+var aiweightofhuman = 10000;
+var humanhtnum = 1.6; //人をどれだけ消そうとするかの値。2以上では一瞬で消される
+var gamemode = 1; //0:普通　1:難しい
+
+var globtimerid;
+var globtimeridistrue = false;
+
+/*各マスの状態クラス*/
+var intgridstate = {ishidden: 0, isblack: 1, iswhite: 2, isred: 3, isblue: 4};
+
+/*リバーシボードの状態*/
+class boardState {
+    constructor() {
+        this.reset();
+    }
+    reset() {
+        this.turn = intgridstate.isblack;
+        this.width = 12;
+        this.height = 12;
+        this.state = [];
+        for(var i=0; i<this.width*this.height; i++) {
+            this.state.push(intgridstate.ishidden);
+        }
+        this.setState(3,3,intgridstate.iswhite);
+        this.setState(3,4,intgridstate.isblack);
+        this.setState(4,3,intgridstate.isblack);
+        this.setState(4,4,intgridstate.iswhite);
+        
+        this.setState(7,3,intgridstate.isred);
+        this.setState(7,4,intgridstate.iswhite);
+        this.setState(8,3,intgridstate.iswhite);
+        this.setState(8,4,intgridstate.isred);
+        
+        this.setState(7,7,intgridstate.isblue);
+        this.setState(7,8,intgridstate.isred);
+        this.setState(8,7,intgridstate.isred);
+        this.setState(8,8,intgridstate.isblue);
+        
+        this.setState(3,7,intgridstate.isblack);
+        this.setState(3,8,intgridstate.isblue);
+        this.setState(4,7,intgridstate.isblue);
+        this.setState(4,8,intgridstate.isblack);
+    }
+    setState(x, y, intstate) {
+        this.state[x+y*this.width] = intstate;
+    }
+    /*x,yに置く*/
+    putGrid(x, y, intstate) {
+        var ablelist = this.iscanset(x, y, intstate);
+        var pointerxy = [];/*[x,y]*/
+        
+        this.setState(x, y, intstate);
+        
+        if(ablelist.length == 0) {
+            return -1;
+        }
+        for(var i=0; i<ablelist.length; i++) {
+            pointerxy = [x, y];
+            while(true) {
+                pointerxy[0] += ablelist[i][1];
+                pointerxy[1] += ablelist[i][0];
+                
+                if(this.getState(pointerxy[0], pointerxy[1]) == intstate) {
+                    break;
+                }
+                this.setState(pointerxy[0], pointerxy[1], intstate);
+            }
+        }
+        return 0;
+    }
+    getState(x, y) {
+        return this.state[x+y*this.width];
+    }
+    
+    countGrid() {
+        var result = [0,0,0,0,0];
+        for(var i=0; i<this.height; i++) {
+            for(var k=0; k<this.width; k++) {
+                for(var o=0; o<5; o++) {
+                    if(this.getState(k, i) == o) {
+                        result[o]++;
+                        break;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+    
+    printState() {
+        uiaddGrid();
+        var tmpelement;
+        const list = ["gridIsHidden", "gridIsBlack", "gridIsWhite", "gridIsRed", "gridIsBlue"];
+var bdvwel = document.getElementById('boardView');
+        var text = "";
+        for(var y=0; y<12; y++) {
+          for(var x=0; x<12; x++) {
+            text += '<input type="button" id="boardpiece-'+x.toString()+'-'+y.toString()+'" style="overflow: hidden; position: absolute; top: '+(12+4.75+33*y).toString()+'px; left: '+(12+4.75+33*x).toString()+'px; width: 25px; height: 25px; border-radius: 15px;" class="'+list[this.getState(x, y)]+'" onclick="userTapped('+x.toString()+', '+y.toString()+');"></input>';
+          }
+        }
+        bdvwel.innerHTML += text;
+    }
+
+    printStatecansetlist(intstate) {
+      var canset = this.getcansetlist(intstate);
+      for(var i=0; i<canset.length; i++) {
+        var element = document.getElementById("boardpiece-"+canset[i][0].toString()+"-"+canset[i][1].toString());
+        element.classList.add("gridIsCanset");
+      }
+    }
+    
+    /*x,yに置けるか判定 ->[y, k]*/
+    iscanset(x, y, intstate) {
+        if(this.getState(x,y)!=0) {
+            return [];
+        }
+        var list = [];/*[y,x]*/
+        var resultlist = [];
+        var x2;
+        var y2;
+
+        var tmp = 0;
+        
+        var xtmp = 0;
+        var ytmp = 0;
+        var tf = true;
+        var istrue = true;
+        
+        for(var i=-1; i<2; i++) {
+            y2 = y+i;
+            for(var k=-1; k<2; k++) {
+                x2 = x+k;
+                if(((i==0)&&(k==0)) || !((0<=x2 && x2<this.width)&&(0<=y2 && y2<this.height))) {
+                    continue;
+                }
+
+                tmp = this.getState(x2,y2);
+                if((tmp != intstate)&&(tmp != 0)) {
+                    list.push([i, k]);
+                }
+            }
+        }
+        istrue = true;
+        for(var i=0; i<list.length; i++) {
+            istrue = true;
+            xtmp = x+list[i][1];
+            ytmp = y+list[i][0];
+            
+            tf = true;
+            while(tf) {
+                xtmp += list[i][1];
+                ytmp += list[i][0];
+                if(!((0<=xtmp && xtmp<this.width)&&(0<=ytmp && ytmp<this.height))) {
+                    istrue = false;
+                    tf = false;
+                }
+                tmp = this.getState(xtmp, ytmp);
+                if(tmp == intstate) {
+                    tf = false;
+                }
+                if(tmp == 0) {
+                    istrue = false;
+                    tf = false;
+                }
+            }
+            if(istrue) {
+                resultlist.push(list[i]);
+            }
+        }
+        return resultlist;
+    }
+    /*置けるマスリストを取得*/
+    getcansetlist(intstate) {
+        var result = [];
+        for(var i=0; i<this.height; i++) {
+            for(var k=0; k<this.width; k++) {
+                if(this.iscanset(k, i, intstate).length>0) {
+                    result.push([k,i]);
+                }
+            }
+        }
+        return result;
+    }
+    
+    /*評価値を取得*/
+    getevnum(x, y, intstate, globintstate, depth) {
+        var copythis = new boardState();
+        var result = 0;
+        var tmpint = 0;
+        for(var i=0; i<this.height; i++) {
+            for(var k=0; k<this.width; k++) {
+                copythis.setState(k, i, this.getState(k, i));
+            }
+        }
+        copythis.putGrid(x, y, intstate);
+        if(depth == 0) {
+            tmpint = copythis.countGrid(globintstate);
+            for(var i=1; i<5; i++) {
+                if(i == globintstate) {
+                    result += tmpint[i];
+                }else {
+                    result -= 4*tmpint[i];
+                    if(userishuman[i-1]) {
+                      result -= humanhtnum*tmpint[i];
+                    }
+                }
+            }
+            return result;
+        }
+        
+        var cansetlist = copythis.getcansetlist(nextTurn(intstate));
+        for(var i=0; i<cansetlist.length; i++) {
+            if(this.isPassGame(globintstate)) {
+                result -= aiweight[copythis.getturn()-1];
+                continue;
+            }
+            result += copythis.getevnum(cansetlist[i][0], cansetlist[i][1], nextTurn(intstate), globintstate, depth-1);
+            
+            if((cansetlist[i][0] == 0) || (cansetlist[i][0] == this.width-1)) {
+              if(userishuman[nextTurn(intstate)-1]) {
+                result -= aiweightofhuman;
+              }else if(nextTurn(intstate) == globintstate) {
+                result += aiweight[copythis.getturn()-1];
+                if((cansetlist[i][1] == 1) || (cansetlist[i][1] == this.height-2)) {
+                  result -= aiweight[copythis.getturn()-1]*2;
+                }
+              }else {
+                result -= aiweight[copythis.getturn()-1]*2;
+              }
+            }
+            if((cansetlist[i][1] == 0) || (cansetlist[i][1] == this.height-1)) {
+              if(userishuman[nextTurn(intstate)-1]) {
+                result -= aiweightofhuman;
+              }else if(nextTurn(intstate) == globintstate) {
+                result += aiweight[copythis.getturn()-1];
+                if((cansetlist[i][0] == 1) || (cansetlist[i][0] == this.width-2)) {
+                  result -= aiweight[copythis.getturn()-1]*2;
+                }
+              }else {
+                result -= aiweight[copythis.getturn()-1]*2;
+              }
+            }
+            if(((cansetlist[i][0] == 1)||(cansetlist[i][0] == this.width-2))&&((cansetlist[i][1] == 1)||(cansetlist[i][1] == this.height-2))) {
+              if(userishuman[nextTurn(intstate)-1]) {
+                result += aiweightofhuman/2;
+              }
+              if(nextTurn(intstate) == globintstate) {
+                result -= aiweight[copythis.getturn()-1]*2;
+              }else {
+                result += aiweight[copythis.getturn()-1];
+              }
+            }
+            result += Math.random()*5;
+        }
+        return result;
+    }
+    /*次の手を考える*/
+    findans(intstate) {
+        var evmax;
+        var evmaxobj = [-1,-1];
+
+        var tmpevnum;
+
+        var cansetlist = this.getcansetlist(intstate);
+        for(var i=0; i<cansetlist.length; i++) {
+            tmpevnum = this.getevnum(cansetlist[i][0], cansetlist[i][1], intstate, intstate, finddepth);
+
+            if((cansetlist[i][0] == 0) || (cansetlist[i][0] == this.width-1)) {
+              tmpevnum += 20000;
+              if((cansetlist[i][1] == 1) || (cansetlist[i][1] == this.height-2)) {
+                if(userishuman[nextTurn(intstate)-1]) {
+                  tmpevnum -= aiweightofhuman*2;
+                }
+                tmpevnum -= 20000;
+              }
+            }
+            if((cansetlist[i][1] == 0) || (cansetlist[i][1] == this.height-1)) {
+              tmpevnum += 20000;
+              if((cansetlist[i][0] == 1) || (cansetlist[i][0] == this.width-2)) {
+                if(userishuman[nextTurn(intstate)-1]) {
+                  tmpevnum -= aiweightofhuman*2;
+                }
+                tmpevnum -= 20000;
+              }
+            }
+            if(((cansetlist[i][0] == 1)||(cansetlist[i][0] == this.width-2))&&((cansetlist[i][1] == 1)||(cansetlist[i][1] == this.height-2))) {
+              if(userishuman[nextTurn(intstate)-1]) {
+                tmpevnum -= aiweightofhuman*2;
+              }
+                tmpevnum -= 20000;
+            }
+
+            if(evmaxobj[0] == -1) {
+                evmax = tmpevnum;
+                evmaxobj = cansetlist[i];
+                continue;
+            }
+            if(evmax<tmpevnum) {
+                evmax = tmpevnum;
+                evmaxobj = cansetlist[i];
+            }
+        }
+        return evmaxobj;
+    }
+    
+    /*次のターン*/
+    setnextTurn() {
+        if(this.turn == 4) {
+            this.turn = 1;
+        }else {
+            this.turn = this.turn+1;
+        }
+    }
+    
+    isPassGame(intstate) {
+        if((this.getcansetlist(intstate)).length == 0) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+    isEndGame() {
+        var isend = true;
+        for(var i=1; i<5; i++) {
+            if(!(this.isPassGame(i))) {
+                isend = false;
+                break;
+            }
+        }
+        return isend;
+    }
+    
+    /*ユーザーから入力を受け付ける*/
+    userInput() {
+        var input = [0,0];
+        alert("input("+this.turn+")");
+        input[0] = Number(prompt("?x: "));
+        input[1] = Number(prompt("?y: "));
+        return input;
+    }
+
+    getturn() {
+      return this.turn;
+    }
+}
+
+function nextTurn(intstate) {
+    if(intstate == 4) {
+        return 1;
+    }else {
+        return intstate+1;
+    }
+}
+
+function f() {
+var a = new boardState();
+a.printState();/*
+var nextgrid = [-1,-1];
+while(true) {
+    if(a.isPassGame(a.turn)) {
+        alert("Pass("+a.turn+")");
+        a.setnextTurn();
+        continue;
+    }
+    
+    if(userishuman[a.turn-1]) {
+        a.printState();
+        nextgrid = a.userInput();
+    }else {
+        nextgrid = a.findans(a.turn);
+    }
+    alert(nextgrid);
+
+    if((a.iscanset(nextgrid[0], nextgrid[1], a.turn)).length != 0) {
+        a.putGrid(nextgrid[0], nextgrid[1], a.turn);
+    }else {
+        alert("is not right input.");
+        continue;
+    }
+    
+    if(a.isEndGame()) {
+        alert("ended game");
+        a.printState();
+        break;
+    }
+    a.setnextTurn();
+}*/
+}
+
+//ui
+      var isstartboardshown = false;
+      var isvictoryboardshown = false;
+      function togglestartboard() {
+        var element = document.getElementById("startboard");
+
+        if(isstartboardshown) {
+          isstartboardshown = false;
+          element.classList.add("hidden");
+        }else {
+          isstartboardshown = true;
+          element.classList.remove("hidden");
+        }
+      }
+      function togglevictoryboard() {
+        if(!isvictoryboardshown) {
+          setVicBoard();
+        }
+
+        var element = document.getElementById("victoryBoard");
+        if(isvictoryboardshown) {
+          isvictoryboardshown = false;
+          element.classList.add("hidden");
+        }else {
+          isvictoryboardshown = true;
+          element.classList.remove("hidden");
+        }
+      }
+      var vicstate = [false, false, false, false];
+      function setVicBoard() {
+        var gridcount = boardstate.countGrid();
+        var winner = [];
+        var maxnum = 0;
+        var element;
+        for(var i=0; i<4; i++) {
+          element = document.getElementById("vicnumboard-"+(i+1).toString());
+          element.innerHTML = '<div class="vicnumboardvaluestyle">'+(gridcount[i+1]).toString()+'</div>';
+          if(gridcount[i+1] == maxnum) {
+            winner.push(i+1);
+          }else if(gridcount[i+1] > maxnum) {
+            winner = [];
+            winner.push(i+1);
+            maxnum = gridcount[i+1];
+          }
+        }
+        for(var i=0; i<4; i++) {
+          element = document.getElementById("iswin-"+(i+1).toString());
+          if(vicstate[i]) {
+            element.classList.add("zeroopacity");
+          }
+        }
+        vicstate = [false, false, false, false];
+        for(var i=0; i<winner.length; i++) {
+          element = document.getElementById("iswin-"+(winner[i]).toString());
+          element.classList.remove("zeroopacity");
+          vicstate[winner[i]-1] = true;
+        }
+      }
+
+      function uidrwGrid() {
+        var bdvwel = document.getElementById('boardView');
+        bdvwel.innerHTML = "";
+        uiaddGrid();
+        uiaddPiece();
+      }
+      function uiaddGrid() {
+        var bdvwel = document.getElementById('boardView');
+        var text = "";
+
+        for(var i=0; i<11; i++) {
+          text += '<div style="overflow: hidden; position: absolute; width: 1.5px; height: 396px; top: 12px; left:'+(45+33*i).toString()+'px; background: #BBBBBB;"></div>';
+        }
+        for(var i=0; i<11; i++) {
+          text += '<div style="overflow: hidden; position: absolute; width: 396px; height: 1.5px; left: 12px; top:'+(45+33*i).toString()+'px; background: #BBBBBB;"></div>';
+        }
+        bdvwel.innerHTML = text;
+      }
+      function uiaddPiece() {
+        var bdvwel = document.getElementById('boardView');
+        var text = "";
+        for(var y=0; y<12; y++) {
+          for(var x=0; x<12; x++) {
+            text += '<input type="button" id="boardpiece-'+x.toString()+'-'+y.toString()+'" style="overflow: hidden; position: absolute; top: '+(12+4.75+33*y).toString()+'px; left: '+(12+4.75+33*x).toString()+'px; width: 25px; height: 25px; border-radius: 15px;" class="gridIsHidden" onclick=""></input>';
+          }
+        }
+        bdvwel.innerHTML += text;
+      }
+
+      function uisetturn(intstate) {
+        var element;
+        for(var i=1; i<5; i++) {
+          element = document.getElementById("isturnboard-"+i.toString());
+          if(i==intstate) {
+            element.innerHTML = '<div style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; background: #3B87FE; border-radius: 3px;">'
+          }else {
+            element.innerHTML = '';
+          }
+        }
+        uisetcountgrid();
+      }
+
+      function uisetcountgrid() {
+        var element;
+        var num = boardstate.countGrid();
+        for(var i=1; i<5; i++) {
+          element = document.getElementById("resultnumboard-"+i.toString());
+          //alert(element.innerHTML);
+          element.innerHTML = '<div class="resultnumboardvaluestyle">'+(num[i]).toString()+'</div>';
+        }
+      }
+
+      function userTapped(x, y) {
+        if(userishuman[boardstate.getturn()-1]) {
+          if(boardstate.iscanset(x, y, boardstate.getturn()).length != 0) {
+            boardstate.putGrid(x, y, boardstate.getturn());
+            var ispass = false;
+
+
+            boardstate.setnextTurn();
+            boardstate.printState();
+            boardstate.printStatecansetlist(boardstate.getturn());
+            uisetturn(boardstate.getturn());
+
+            if((userishuman[boardstate.getturn()-1]) && !(boardstate.isPassGame(boardstate.getturn()))) {
+              return;
+            }
+            var ised = false;
+            var timerid = setInterval(function () {
+              if(!ised) {
+                globtimerid = timerid;
+                globtimeridistrue = true;
+                ised = true;
+              }
+              if(globtimeridistrue) {
+              
+              boardstate.printStatecansetlist(boardstate.getturn());
+              ispass = false;
+
+              if(boardstate.isEndGame()) {
+                ///////
+                togglevictoryboard();
+                clearInterval(timerid);
+              }
+              if(boardstate.isPassGame(boardstate.getturn())) {
+                ispass = true;
+              }
+              if(!ispass) {
+                var nextgrid = boardstate.findans(boardstate.getturn());
+                boardstate.putGrid(nextgrid[0], nextgrid[1], boardstate.getturn());
+              }
+
+              boardstate.setnextTurn();
+              uisetturn(boardstate.getturn());
+              boardstate.printState();
+              boardstate.printStatecansetlist(boardstate.getturn());
+
+              if((userishuman[boardstate.getturn()-1])&&(!(boardstate.isPassGame(boardstate.getturn())))) {
+                ispass = true;
+                clearInterval(timerid);
+              }
+              }
+            }, 250);
+          }else {
+            return;
+          }
+        }else {
+          return;
+        }
+      }
+
+      function startGame() {
+        if(globtimeridistrue) {
+          globtimeridistrue = false;
+          clearInterval(globtimerid);
+        }
+        var element;
+        for(var i=0; i<4; i++) {
+          element = document.getElementById("selecter-"+(i+1).toString());
+          if(element.value == "cpu") {
+            userishuman[i] = false;
+          }else {
+            userishuman[i] = true;
+          }
+        }
+        element = document.getElementById("ishighlevelcheck");
+        if(element.checked) {
+          gamemode = 1;
+        }else {
+          gamemode = 0;
+        }
+        if(isvictoryboardshown) {
+          togglevictoryboard();
+        }
+        setAiWeight();
+        boardstate.reset();
+        boardstate.printState();
+        boardstate.printStatecansetlist(1);
+        uisetturn(boardstate.getturn());
+        uisetcountgrid();
+        togglestartboard();
+      }
+
+      function setAiWeight() {
+        var ist = true;
+        for(var i=1; i<4; i++) {
+          if(userishuman[i]) {
+            ist = false;
+            break;
+          }
+        }
+        if(gamemode == 0) {
+          ist = false;
+          humanhtnum = -0.3;
+        }else {
+          humanhtnum = 1.6;
+        }
+
+        if(ist) {
+          aiweightofhuman = 10000;
+        }else {
+          aiweightofhuman = 100;
+        }
+
+        for(var i=0; i<4; i++) {
+          if(ist) {
+            aiweight[i] = 1000-((Math.random())^(i))*2000;
+          }else {
+            aiweight[i] = 1000;
+          }
+        }
+      }
+
+var boardstate = new boardState();
+window.onload = function() {
+  gamemode = 1;
+  setAiWeight();
+  uidrwGrid();
+  boardstate.printState();
+  uisetturn(1);
+  boardstate.printStatecansetlist(1);
+}
+
+    </script>
+  </head>
+  <body>
+<!--resultboard-->
+    <div id="resultboard-1" class="resultboardstyle">
+      <div class="resultboard-grid gridIsBlack"></div>
+      <div id="resultnumboard-1" class="resultnumboardstyle">
+        <div class="resultnumboardvaluestyle">4</div>
+      </div>
+      <div id="isturnboard-1" class="isturnboardstyle">
+        <div style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; background: #3B87FE; border-radius: 3px;">
+      </div>
+    </div>
+    <div id="resultboard-2" class="resultboardstyle">
+      <div class="resultboard-grid gridIsWhite"></div>
+      <div id="resultnumboard-2" class="resultnumboardstyle">
+        <div class="resultnumboardvaluestyle">4</div>
+      </div>
+      <div id="isturnboard-2" class="isturnboardstyle"></div>
+    </div>
+    <div id="resultboard-3" class="resultboardstyle">
+      <div class="resultboard-grid gridIsRed"></div>
+      <div id="resultnumboard-3" class="resultnumboardstyle">
+        <div class="resultnumboardvaluestyle">4</div>
+      </div>
+      <div id="isturnboard-3" class="isturnboardstyle"></div>
+    </div>
+    <div id="resultboard-4" class="resultboardstyle">
+      <div class="resultboard-grid gridIsBlue"></div>
+      <div id="resultnumboard-4" class="resultnumboardstyle">
+        <div class="resultnumboardvaluestyle">4</div>
+      </div>
+      <div id="isturnboard-4" class="isturnboardstyle"></div>
+    </div>
+
+<!--reversiboard-->
+    <div id="boardback">
+      <div id="boardView">
+
+      </div>
+    </div>
+
+<!--actionbutton-->
+    <button id="menubutton" onclick="togglestartboard();">•••</button>
+
+<!--victoryBoard-->
+    <div id="victoryBoard" class="hidden">
+      <div style="font-family: monospace; font-size: 50px; color: #DEC488">GameResult</div>
+
+      <table border="0" style="display: inline-block;"><tr><td>
+        <div class="gridIsBlack" style="overflow: hidden; border-radius: 30px; width: 60px; height: 60px;"></div>
+      </td><td>
+        <div id="vicnumboard-1" class="vicnumboardstyle">
+          <div class="vicnumboardvaluestyle">4</div>
+        </div>
+      </td><td>
+        <div id="iswin-1" class="winstyle zeroopacity">
+          👑
+        </div>
+      </td></tr></table>
+
+      <br>
+
+      <table border="0" style="display: inline-block;"><tr><td>
+        <div class="gridIsWhite" style="overflow: hidden; border-radius: 30px; width: 60px; height: 60px;"></div>
+      </td><td>
+        <div id="vicnumboard-2" class="vicnumboardstyle">
+          <div class="vicnumboardvaluestyle">4</div>
+        </div>
+      </td><td>
+        <div id="iswin-2" class="winstyle zeroopacity">
+          👑
+        </div>
+      </td></tr></table>
+
+      <br>
+
+      <table border="0" style="display: inline-block;"><tr><td>
+        <div class="gridIsRed" style="overflow: hidden; border-radius: 30px; width: 60px; height: 60px;"></div>
+      </td><td>
+        <div id="vicnumboard-3" class="vicnumboardstyle">
+          <div class="vicnumboardvaluestyle">4</div>
+        </div>
+      </td><td>
+        <div id="iswin-3" class="winstyle zeroopacity">
+          👑
+        </div>
+      </td></tr></table>
+
+      <br>
+
+      <table border="0" style="display: inline-block;"><tr><td>
+        <div class="gridIsBlue" style="overflow: hidden; border-radius: 30px; width: 60px; height: 60px;"></div>
+      </td><td>
+        <div id="vicnumboard-4" class="vicnumboardstyle">
+          <div class="vicnumboardvaluestyle">4</div>
+        </div>
+      </td><td>
+        <div id="iswin-4" class="winstyle zeroopacity">
+          👑
+        </div>
+      </td></tr></table>
+
+      <br>
+
+      <button id="replaybutton" onclick="togglestartboard();">Replay</button>
+    </div>
+
+<!--startBoard-->
+    <div id="startboard" class="hidden">
+      <button onclick="togglestartboard();" id="hiddenstart">
+        <div style="overflow: hidden; background: #8E8E8E; transform: rotate(45deg); width: 2px; height: 23px; position: absolute; top: 8.5px; left: calc(50% - 1px);"></div>
+        <div style="overflow: hidden; background: #8E8E8E; transform: rotate(315deg); width: 2px; height: 23px; position: absolute; top: 8.5px; left: calc(50% - 1px);"></div>
+      </button>
+      <div style="font-family: monospace; font-size: 50px; color: #DEC488">Revers1</div>
+      <div style="font-family: monospace; font-size: 20px; color: #DEC488; margin-bottom: 10px;">12x12</div>
+
+      <table border="0" style="display: inline-block;"><tr><td>
+        <div class="gridIsBlack" style="overflow: hidden; border-radius: 30px; width: 60px; height: 60px;"></div>
+      </td><td>
+        <select name="selecter-1" id="selecter-1">
+          <option value="human">😃</option>
+        </select>
+      </td></tr></table>
+
+      <br>
+
+      <table border="0" style="display: inline-block;"><tr><td>
+        <div class="gridIsWhite" style="overflow: hidden; border-radius: 30px; width: 60px; height: 60px;"></div>
+      </td><td>
+        <select name="selecter-2" id="selecter-2">
+          <option value="human">😃</option>
+          <option value="cpu">💻</option>
+        </select>
+      </td></tr></table>
+
+      <br>
+
+      <table border="0" style="display: inline-block;"><tr><td>
+        <div class="gridIsRed" style="overflow: hidden; border-radius: 30px; width: 60px; height: 60px;"></div>
+      </td><td>
+        <select name="selecter-3" id="selecter-3">
+          <option value="human">😃</option>
+          <option value="cpu">💻</option>
+        </select>
+      </td></tr></table>
+
+      <br>
+
+      <table border="0" style="display: inline-block;"><tr><td>
+        <div class="gridIsBlue" style="overflow: hidden; border-radius: 30px; width: 60px; height: 60px;"></div>
+      </td><td>
+        <select name="selecter-4" id="selecter-4">
+          <option value="human">😃</option>
+          <option value="cpu">💻</option>
+        </select>
+      </td></tr></table>
+
+      <br>
+        <input type="checkbox" id="ishighlevelcheck" checked>
+        <label for="ishighlevelcheck" style="color: #5E5E5E; font-family: sans-serif;">High-Level CPU Mode</label>
+      <br>
+
+      <button id="startbutton" onclick="startGame();">Start</button>
+    </div>
+  </body>
+</html>
